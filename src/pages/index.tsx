@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from '@components/layout'
 import Catalog from '@components/Catalog'
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const response = await fetch("https://diplom-e-commerce-server.onrender.com/api/auth/catalog");
 
     const data = await response.json();
@@ -10,7 +10,8 @@ export async function getServerSideProps() {
     return {
         props: {
             products: data
-        }
+        },
+        revalidate: 10
     }
 }
 

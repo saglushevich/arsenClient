@@ -17,7 +17,7 @@ export async function getStaticPaths() {
     };
   }
 
-export async function getServerSideProps(context: any) {
+export async function getStaticProps(context: any) {
     const { params } = context;
 
     const product = await fetch(`https://diplom-e-commerce-server.onrender.com/api/auth/product/${params.id}`);
@@ -27,7 +27,8 @@ export async function getServerSideProps(context: any) {
     return {
         props: {
             product: data
-        }
+        },
+        revalidate: 10
     }
 }
 
