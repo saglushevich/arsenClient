@@ -41,7 +41,7 @@ function Cart() {
                 </List>
                 <OrderWrapper>
                     <OrderText>Количество товаров в корзине: {totalQuantity}</OrderText>
-                    <OrderText>Итоговая сумма: {totalPrice} BYN</OrderText>
+                    <OrderText>Итоговая сумма: {totalPrice.toFixed(2)} BYN</OrderText>
                 </OrderWrapper>
                 <Order changeCart={changeCart} />
             </> :
