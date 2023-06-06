@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { makeOrder } from "@actions";
 
 import {
@@ -12,6 +12,7 @@ interface IPayPal {
 }
 
 export const usePayPal = ({ order, onChangeMessage }: IPayPal) => {
+    const [loading, setLoading] = useState(true);
     const [{ options }, dispatch] = usePayPalScriptReducer();
     const { price } = order;
     // console.log()
@@ -21,6 +22,7 @@ export const usePayPal = ({ order, onChangeMessage }: IPayPal) => {
             type: "resetOptions",
             value: { ...options },
         });
+        setLoading(false)
     }, []);
   
     const payPalConfig: PayPalButtonsComponentProps = {
@@ -45,11 +47,12 @@ export const usePayPal = ({ order, onChangeMessage }: IPayPal) => {
               })
               .catch(() => {
                 onChangeMessage("Ошибка с оплатой. Повторите еще раз!");
+                setLoading(false)
               })
           : Promise.resolve().then(() => {
               throw new Error("Error with Paypal API");
             }),
     };
   
-    return payPalConfig;
+    return {payPalConfig, loading};
   };

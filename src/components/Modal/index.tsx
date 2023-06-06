@@ -18,7 +18,7 @@ export function Modal({ order, toggleActive, changeCart }: IModal) {
     const onChangeMessage = (text: string) => {
         setMessage(text)
     }
-    const payPalConfig = usePayPal({ order, onChangeMessage });
+    const {payPalConfig, loading} = usePayPal({ order, onChangeMessage });
 
     useEffect(() => {
         if (message) {
@@ -39,7 +39,7 @@ export function Modal({ order, toggleActive, changeCart }: IModal) {
                         <Description>
                             Пожалуйста, выберите способ оплаты:
                         </Description>
-
+                        {loading && <Title>Загрузка...</Title>}
                         <Buttons>
                             <PayPalButtons {...payPalConfig} />
                         </Buttons>
